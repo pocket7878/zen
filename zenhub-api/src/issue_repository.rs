@@ -48,6 +48,11 @@ impl fmt::Display for Event {
                 "{} [{}] by {}",
                 self.created_at, self.event_type, self.user_id
             ),
+            EventType::AddEpicToIssue => write!(
+                f,
+                "{} [{}] by {}",
+                self.created_at, self.event_type, self.user_id
+            ),
         }
     }
 }
@@ -60,6 +65,8 @@ enum EventType {
     TransferIssue,
     #[serde(rename = "convertIssueToEpic")]
     ConvertIssueToEpic,
+    #[serde(rename = "addEpicToIssue")]
+    AddEpicToIssue,
 }
 
 impl fmt::Display for EventType {
@@ -68,6 +75,7 @@ impl fmt::Display for EventType {
             EventType::EstimateIssue => write!(f, "estimate issue"),
             EventType::TransferIssue => write!(f, "transfer issue"),
             EventType::ConvertIssueToEpic => write!(f, "convert issue to epic"),
+            EventType::AddEpicToIssue => write!(f, "add epic to issue"),
         }
     }
 }
@@ -115,6 +123,7 @@ impl IssueRepository {
             .send()
             .await?
             .error_for_status()?;
+
         Ok(response.json().await?)
     }
 }
