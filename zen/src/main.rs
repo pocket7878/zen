@@ -4,9 +4,9 @@ extern crate zenhub_api;
 
 mod command;
 
+use clap::{value_t, App, Arg, SubCommand};
 use std::env;
 use std::process;
-use clap::{value_t, App, Arg, SubCommand};
 
 const ZEN_AUTH_TOKEN_KEY: &str = "ZEN_AUTH_TOKEN";
 
@@ -19,7 +19,7 @@ async fn main() {
             process::exit(1);
         }
     };
-    
+
     let issue_command = SubCommand::with_name("issue")
         .about("Work with ZenHub Issue")
         .setting(clap::AppSettings::ArgRequiredElseHelp)

@@ -32,8 +32,7 @@ impl EpicRepository {
         let response = client
             .get(&format!(
                 "https://api.zenhub.com/p1/repositories/{}/epics/{}",
-                repo_id,
-                epic_id
+                repo_id, epic_id
             ))
             .send()
             .await?

@@ -15,9 +15,12 @@ impl Command {
 
     pub async fn run(&self) {
         let repo = zenhub_api::IssueRepository::new(self.api_token.to_owned());
-        println!(
-            "{:?}",
-            repo.get_events(self.repo_id, self.issue_number).await
-        );
+        for e in repo
+            .get_events(self.repo_id, self.issue_number)
+            .await
+            .unwrap()
+        {
+            println!("{}", e);
+        }
     }
 }

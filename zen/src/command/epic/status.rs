@@ -9,15 +9,12 @@ impl Command {
         Self {
             api_token,
             repo_id,
-            epic_id
+            epic_id,
         }
     }
 
     pub async fn run(&self) {
         let repo = zenhub_api::EpicRepository::new(self.api_token.to_owned());
-        println!(
-            "{:?}",
-            repo.get_data(self.repo_id, self.epic_id).await
-        );
+        println!("{:?}", repo.get_data(self.repo_id, self.epic_id).await);
     }
 }
